@@ -1,2 +1,4 @@
-package ru.ibs.hwdata.dao;public class EngineDAO {
+package ru.ibs.hwdata.dao;
+
+public class EngineDAO {
 }

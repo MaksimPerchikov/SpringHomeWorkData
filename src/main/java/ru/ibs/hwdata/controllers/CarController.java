@@ -1,41 +1,55 @@
 package ru.ibs.hwdata.controllers;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.ibs.hwdata.dao.CarDAO;
 import ru.ibs.hwdata.entities.Car;
-import ru.ibs.hwdata.repo.CarRepository;
 
-import java.util.*;
+
+import java.awt.*;
+import java.util.List;
+
 
 @RestController
-@RequestMapping/*(value =*/("/api/car")/*,consumes = {MediaType.ALL_VALUE},produces = MediaType.APPLICATION_JSON_VALUE)*/
-public class FirstController {
+@RequestMapping("/api/car")
+public class CarController {
 
+    @Autowired
+    private CarDAO carDAO;
 
-    private CarRepository carRepository;
-
-    /*private CarDAO carDAO;
-
-    public FirstController(CarDAO carDAO) {
-        this.carDAO = carDAO;
-    }*/
-
-    /*@GetMapping("/all")
-    public List<Car> index(){
-        return carDAO.index();
-    }*/
-
-   /* @GetMapping("{id}")
-    public Car show(@PathVariable("id") int id){
-        return carDAO.show(id);
+    @GetMapping(value = "show",consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Car> showAllCar(){
+        List<Car> carList = carDAO.findAll();
+       return carList;
     }
-*/
 
+    @PostMapping(value = "create",consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Car create(Car car){
+    return carDAO.save(car);
+    }
+
+    @GetMapping(value = "search/{id}",consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Car searchById(@RequestParam Integer id){
+        return carDAO.findById(id);
+    }
+
+    @GetMapping(value = "delete/{id}",consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void delete(@RequestParam Integer id){
+        carDAO.deleteById(id);
+    }
+
+    //Тестовый вызов
+    @GetMapping("/la")
+    public String ss(){
+        return carDAO.str();
+    }
 
 
     ///////////////////////////////////
+
+
+
+
 
 
     /*
@@ -49,7 +63,6 @@ public class FirstController {
         }
     };
 
-
     @GetMapping("/postbody")
     public List<Map<String,String>> postBody(){
         return messages;
@@ -60,13 +73,11 @@ public class FirstController {
         return getMessage(id);
     }
 
-
     private Map<String, String> getMessage(String id) {
         return messages.stream()
                 .filter(message-> message.get("id").equals(id))
                 .findAny().orElseThrow(NotFoundEx::new);
     }
-
 
     @PostMapping("/create")
     public Map<String,String> create(@RequestBody Map<String,String> message){
