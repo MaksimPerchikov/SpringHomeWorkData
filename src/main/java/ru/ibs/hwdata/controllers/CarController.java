@@ -17,7 +17,7 @@ public class CarController {
     @Autowired
     private CarDAO carDAO;
 
-    @GetMapping(value = "show",consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "read",consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Car> showAllCar(){
         List<Car> carList = carDAO.findAll();
        return carList;
