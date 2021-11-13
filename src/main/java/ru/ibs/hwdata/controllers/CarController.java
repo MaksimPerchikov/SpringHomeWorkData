@@ -24,17 +24,17 @@ public class CarController {
     }
 
     @PostMapping(value = "create",consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Car create(Car car){
+    public Car create(@RequestParam Car car){
     return carDAO.save(car);
     }
 
     @GetMapping(value = "search/{id}",consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Car searchById(@RequestParam Integer id){
+    public Car searchById(@PathVariable Integer id){
         return carDAO.findById(id);
     }
 
     @GetMapping(value = "delete/{id}",consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@RequestParam Integer id){
+    public void delete(@PathVariable Integer id){
         carDAO.deleteById(id);
     }
 
@@ -42,6 +42,10 @@ public class CarController {
     @GetMapping("/la")
     public String ss(){
         return carDAO.str();
+    }
+    @GetMapping("laP/{str}")
+    public String ssp(@PathVariable String str){
+       return carDAO.strP(str);
     }
 
 

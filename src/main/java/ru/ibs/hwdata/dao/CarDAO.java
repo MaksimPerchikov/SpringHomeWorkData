@@ -40,9 +40,12 @@ public class CarDAO {
     public void deleteById(Integer id){
         carRepository.deleteById(id);
     }
-
+    //тестовый гет метод
     public String str(){
         return "lala";
+    }
+    public String strP(String str1){
+        return str1;
     }
 
 
