@@ -1,27 +1,47 @@
 package ru.ibs.hwdata.dao;
 
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.ibs.hwdata.entities.Car;
+import ru.ibs.hwdata.repo.CarRepository;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
-//@Component
+@Service
 public class CarDAO {
-    private static int CAR_COUNTER;
+    /*private static int CAR_COUNTER;
     private static Connection connection;
-    /*spring.datasource.url=jdbc:postgresql://localhost:5432/myData
+    *//*spring.datasource.url=jdbc:postgresql://localhost:5432/myData
     spring.datasource.username=root
     spring.datasource.password=root
-    spring.jpa.generate-ddl=create*/
+    spring.jpa.generate-ddl=create*//*
 
     private static final String URL = "jdbc:mysql://localhost:3306/newcars";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "roott";
+    private static final String PASSWORD = "roott";*/
 
-    static{
+
+    private CarRepository carRepository;
+
+    public Car save(Car car){
+        return carRepository.save(car);
+    }
+
+    public List<Car> findAll(){
+        return carRepository.findAll();
+    }
+
+    public Car findById(Integer id){
+        return carRepository.findById(id).orElse(null);
+    }
+
+    public void deleteById(Integer id){
+        carRepository.deleteById(id);
+    }
+
+   /* static{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -84,5 +104,5 @@ public class CarDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

@@ -1,16 +1,13 @@
 package ru.ibs.hwdata.entities;
 
 
-import lombok.Generated;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.util.ProxyUtils;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Car {
 
     @Id
@@ -19,20 +16,14 @@ public class Car {
 
     private String model;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     Engine engine;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="id")
     SteeringWheel steeringWheel;
 
-    public Car(){}
-
     public Car(String model) {
-        this.model = model;
-    }
-
-    public Car(Integer id, String model) {
-        this.id = id;
         this.model = model;
     }
 
@@ -54,7 +45,11 @@ public class Car {
 
     @Override
     public String toString() {
-        return String.join(id.toString(),model);  /*return String.join(" ",model);*/
+        return "Car{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", engine=" + engine +
+                ", steeringWheel=" + steeringWheel +
+                '}';
     }
-
 }
