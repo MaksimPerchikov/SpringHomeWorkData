@@ -19,6 +19,12 @@ public class Car {
 
     private String model;
 
+    @OneToOne
+    Engine engine;
+
+    @OneToOne
+    SteeringWheel steeringWheel;
+
     public Car(){}
 
     public Car(String model) {
