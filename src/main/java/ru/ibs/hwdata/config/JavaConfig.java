@@ -1,3 +1,6 @@
+
+
+
 package ru.ibs.hwdata.config;
 
 
@@ -10,12 +13,14 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+/*import ru.ibs.hwdata.repo.CarRepository;*/
 
 import javax.sql.DataSource;
 
-@Configuration
+/*@Configuration
 @EnableJpaRepositories
 public class JavaConfig {
+
 
     @Bean
     public DataSource dataSource(){
@@ -26,6 +31,8 @@ public class JavaConfig {
         dataSource.setUrl("jdbc:mysql://localhost:3306/newcars");
         return dataSource;
     }
+
+
 ////
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
@@ -44,4 +51,10 @@ public class JavaConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
-}
+
+
+
+}*/
+
+
+

@@ -19,11 +19,17 @@ public class Car {
     @OneToOne(cascade = CascadeType.ALL)
     Engine engine;
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="id")
     SteeringWheel steeringWheel;
 
+
     public Car(String model) {
+        this.model = model;
+    }
+    public Car(Integer id, String model) {
+        this.id = id;
         this.model = model;
     }
 
@@ -52,4 +58,5 @@ public class Car {
                 ", steeringWheel=" + steeringWheel +
                 '}';
     }
+
 }

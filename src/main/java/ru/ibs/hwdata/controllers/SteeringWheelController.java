@@ -1,2 +1,4 @@
-package ru.ibs.hwdata.controllers;public class SteeringWheelController {
+package ru.ibs.hwdata.controllers;
+
+public class SteeringWheelController {
 }
