@@ -18,15 +18,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/manual")
 public class ManualController {
-
     @Autowired
     private ManualDAO manualDAO;
 
+
     @GetMapping(value = "read/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Manual> readById(@PathVariable Integer id) {
+    public List<Manual> readById(@PathVariable("id") Integer id) {
         try {
             List<Manual> engineList = new ArrayList<>();
-            engineList.add(manualDAO.findById(id));
+            engineList.add((Manual) manualDAO.findById(id));
             return engineList;
 
         } catch (Exception e) {
@@ -40,11 +40,11 @@ public class ManualController {
     }
 
     @GetMapping(value = "delete/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable("id") Integer id) {
         try {
             manualDAO.deleteById(id);
         } catch (Exception e) {
-            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

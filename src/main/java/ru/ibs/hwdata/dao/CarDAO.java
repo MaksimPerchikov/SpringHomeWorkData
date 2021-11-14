@@ -1,20 +1,26 @@
 package ru.ibs.hwdata.dao;
 
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.ibs.hwdata.entities.Car;
+import ru.ibs.hwdata.entities.Engine;
 import ru.ibs.hwdata.repo.CarRepository;
 
-import java.sql.*;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
-@Service
+@Component
 public class CarDAO {
 
-    private CarRepository carRepository;
+    CarRepository carRepository;
 
+    /*CarDAO(CarRepository carRepository){
+        this.carRepository = carRepository;
+    }
+*/
     public Car save(Car car){
         return carRepository.save(car);
     }
@@ -23,24 +29,14 @@ public class CarDAO {
         return carRepository.findAll();
     }
 
-    public Car findById(Integer id){
-        return carRepository.getOne(id);
-    }
+   public Object findById(Integer id){
+       return carRepository.findById(id);
+   }
 
     public void deleteById(Integer id){
         carRepository.deleteById(id);
     }
 
-    /*public Map<Integer,List<Car>> updateById(Map<Integer,List<Car>> integerListMap){
-
-    }*/
-
-
-    /*private Map<String, String> getMessage(String id) {
-        return messages.stream()
-                .filter(message-> message.get("id").equals(id))
-                .findAny().orElseThrow(NotFoundEx::new);
-    }*/
 
     //тестовый гет метод
     public String str(){

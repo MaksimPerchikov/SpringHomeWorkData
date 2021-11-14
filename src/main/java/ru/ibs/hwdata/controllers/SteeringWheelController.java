@@ -20,11 +20,12 @@ public class SteeringWheelController {
     @Autowired
     private SteeringWheelDAO steeringWheelDAO;
 
+
     @GetMapping(value = "read/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<SteeringWheel> readById(@PathVariable Integer id) {
+    public List<SteeringWheel> readById(@PathVariable("id") Integer id) {
         try {
             List<SteeringWheel> steeringWheelList = new ArrayList<>();
-            steeringWheelList.add(steeringWheelDAO.findById(id));
+            steeringWheelList.add((SteeringWheel) steeringWheelDAO.findById(id));
             return steeringWheelList;
 
         } catch (Exception e) {
@@ -38,11 +39,11 @@ public class SteeringWheelController {
     }
 
     @GetMapping(value = "delete/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable("id") Integer id) {
         try {
             steeringWheelDAO.deleteById(id);
         } catch (Exception e) {
-            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

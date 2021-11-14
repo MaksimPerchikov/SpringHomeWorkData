@@ -18,13 +18,14 @@ import java.util.List;
 public class GearController {
 
     @Autowired
-    GearDAO gearDAO;
+    private GearDAO gearDAO;
+
 
     @GetMapping(value = "read/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Gear> readById(@PathVariable Integer id) {
+    public List<Gear> readById(@PathVariable("id") Integer id) {
         try {
             List<Gear> engineList = new ArrayList<>();
-            engineList.add(gearDAO.findById(id));
+            engineList.add((Gear) gearDAO.findById(id));
             return engineList;
 
         } catch (Exception e) {
@@ -38,11 +39,11 @@ public class GearController {
     }
 
     @GetMapping(value = "delete/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable("id") Integer id) {
         try {
             gearDAO.deleteById(id);
         } catch (Exception e) {
-            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

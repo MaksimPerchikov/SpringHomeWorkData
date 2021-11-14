@@ -1,5 +1,7 @@
 package ru.ibs.hwdata.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.ibs.hwdata.entities.Car;
 import ru.ibs.hwdata.entities.Engine;
@@ -7,10 +9,14 @@ import ru.ibs.hwdata.repo.EngineRepository;
 
 import java.util.List;
 
-@Service
+@Component
 public class EngineDAO {
 
-    private EngineRepository engineRepository;
+    EngineRepository engineRepository;
+
+   /* public EngineDAO(EngineRepository engineRepository) {
+        this.engineRepository = engineRepository;
+    }*/
 
     public Engine save(Engine engine){
         return engineRepository.save(engine);
@@ -20,8 +26,8 @@ public class EngineDAO {
         return engineRepository.findAll();
     }
 
-    public Engine findById(Integer id){
-        return engineRepository.getOne(id);
+    public Object findById(Integer id){
+        return engineRepository.findById(id);
     }
 
     public void deleteById(Integer id){

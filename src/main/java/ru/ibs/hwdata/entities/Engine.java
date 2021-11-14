@@ -21,12 +21,12 @@ public class Engine {
     private String type;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Gear gear;
+    private List<Gear> gear;
 
     @OneToOne
     Manual manual;
 
-    public Engine(Integer id_engine,Gear gear, String type, Manual manual) {
+    public Engine(Integer id_engine,List<Gear> gear, String type, Manual manual) {
         this.id_engine = id_engine;
         this.gear = gear;
         this.type = type;

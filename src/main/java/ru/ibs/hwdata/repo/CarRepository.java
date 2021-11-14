@@ -7,7 +7,6 @@ import ru.ibs.hwdata.entities.Car;
 
 import java.util.List;
 
-@Repository
 public interface CarRepository extends JpaRepository<Car,Integer> {
 }
 

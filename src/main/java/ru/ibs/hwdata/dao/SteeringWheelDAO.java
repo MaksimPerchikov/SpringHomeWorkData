@@ -1,5 +1,6 @@
 package ru.ibs.hwdata.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ibs.hwdata.entities.Gear;
 import ru.ibs.hwdata.entities.SteeringWheel;
@@ -10,7 +11,11 @@ import java.util.List;
 @Service
 public class SteeringWheelDAO {
 
-    private SteeringWheelRepository steeringWheelRepository;
+    SteeringWheelRepository steeringWheelRepository;
+
+    /*public SteeringWheelDAO(SteeringWheelRepository steeringWheelRepository) {
+        this.steeringWheelRepository = steeringWheelRepository;
+    }*/
 
     public SteeringWheel save(SteeringWheel steeringWheel){
         return steeringWheelRepository.save(steeringWheel);
@@ -20,8 +25,8 @@ public class SteeringWheelDAO {
         return steeringWheelRepository.findAll();
     }
 
-    public SteeringWheel findById(Integer id){
-        return steeringWheelRepository.getOne(id);
+    public Object findById(Integer id){
+        return steeringWheelRepository.findById(id);
     }
 
     public void deleteById(Integer id){

@@ -20,11 +20,12 @@ public class EngineController {
     @Autowired
     private EngineDAO engineDAO;
 
+
     @GetMapping(value = "read/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Engine> readById(@PathVariable Integer id){
+    public List<Engine> readById(@PathVariable("id") Integer id){
         try{
             List<Engine> engineList = new ArrayList<>();
-            engineList.add(engineDAO.findById(id));
+            engineList.add((Engine) engineDAO.findById(id));
             return engineList;
 
         }catch(Exception e){
@@ -38,11 +39,11 @@ public class EngineController {
     }
 
     @GetMapping(value = "delete/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable("id") Integer id) {
         try{
             engineDAO.deleteById(id);
         }catch (Exception e){
-            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
