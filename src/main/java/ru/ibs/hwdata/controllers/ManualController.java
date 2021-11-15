@@ -13,14 +13,19 @@ import ru.ibs.hwdata.entities.Manual;
 import ru.ibs.hwdata.entities.SteeringWheel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/manual")
 public class ManualController {
-    @Autowired
-    private ManualDAO manualDAO;
 
+    private final ManualDAO manualDAO;
+    @Autowired
+    public ManualController(ManualDAO manualDAO) {
+        this.manualDAO = manualDAO;
+    }
 
     @GetMapping(value = "read/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Manual> readById(@PathVariable("id") Integer id) {
@@ -43,6 +48,16 @@ public class ManualController {
     public void delete(@PathVariable("id") Integer id) {
         try {
             manualDAO.deleteById(id);
+        } catch (Exception e) {
+            new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("update/{id}")
+    public void updateById(@RequestBody Integer id,
+                           Manual manual) {
+        try {
+            Map<Manual, Integer> manualIntegerHashMap = new HashMap<>();
+            manualIntegerHashMap.put(manual, id);
         } catch (Exception e) {
             new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

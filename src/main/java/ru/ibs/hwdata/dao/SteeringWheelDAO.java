@@ -13,9 +13,6 @@ public class SteeringWheelDAO {
 
     SteeringWheelRepository steeringWheelRepository;
 
-    /*public SteeringWheelDAO(SteeringWheelRepository steeringWheelRepository) {
-        this.steeringWheelRepository = steeringWheelRepository;
-    }*/
 
     public SteeringWheel save(SteeringWheel steeringWheel){
         return steeringWheelRepository.save(steeringWheel);

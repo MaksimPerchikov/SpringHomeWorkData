@@ -14,9 +14,6 @@ public class GearDAO {
 
     GearRepository gearRepository;
 
-    /*public GearDAO(GearRepository gearRepository) {
-        this.gearRepository = gearRepository;
-    }*/
 
     public Gear save(Gear gear){
         return gearRepository.save(gear);

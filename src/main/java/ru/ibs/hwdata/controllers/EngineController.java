@@ -11,14 +11,23 @@ import ru.ibs.hwdata.entities.Car;
 import ru.ibs.hwdata.entities.Engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/engine")
 public class EngineController {
 
+
+    private final EngineDAO engineDAO;
     @Autowired
-    private EngineDAO engineDAO;
+    public EngineController(EngineDAO engineDAO) {
+        this.engineDAO = engineDAO;
+    }
+
+
+
 
 
     @GetMapping(value = "read/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,6 +52,17 @@ public class EngineController {
         try{
             engineDAO.deleteById(id);
         }catch (Exception e){
+            new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("update/{id}")
+    public void updateById(@RequestBody Integer id,
+                           Engine engine) {
+        try {
+            Map<Engine, Integer> engineIntegerHashMap = new HashMap<>();
+            engineIntegerHashMap.put(engine, id);
+        } catch (Exception e) {
             new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

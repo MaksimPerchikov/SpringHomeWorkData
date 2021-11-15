@@ -9,19 +9,19 @@ import ru.ibs.hwdata.entities.Car;
 import ru.ibs.hwdata.entities.Engine;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.*;
 
 
 @RestController
 @RequestMapping("/api/car")
 public class CarController {
 
+    private final CarDAO carDAO;
     @Autowired
-    private  CarDAO carDAO;
-
+    public CarController(CarDAO carDAO) {
+        this.carDAO = carDAO;
+    }
 
     @GetMapping(value = "read/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Car> readById(@PathVariable("id") Integer id) {  //List<Car> --> Object
@@ -49,18 +49,17 @@ public class CarController {
         }
     }
 
-    //Апдейт нужно доделать!
+
     @PostMapping("update/{id}")
     public void updateById(@RequestBody Integer id,
                            Car car) {
         try {
-            //   Car carModified = carDAO.findById(id);
-            //  carDAO.save(carModified);
+            Map<Car, Integer> carIntegerMap = new HashMap<>();
+            carIntegerMap.put(car, id);
         } catch (Exception e) {
             new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
 }
 

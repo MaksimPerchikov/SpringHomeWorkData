@@ -12,9 +12,6 @@ public class ManualDAO {
 
     ManualRepository manualRepository;
 
-    /*public ManualDAO(ManualRepository manualRepository) {
-        this.manualRepository = manualRepository;
-    }*/
 
     public Manual save(Manual manual){
         return manualRepository.save(manual);
