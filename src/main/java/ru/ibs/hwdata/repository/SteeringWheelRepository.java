@@ -1,4 +1,4 @@
-package ru.ibs.hwdata.repo;
+package ru.ibs.hwdata.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

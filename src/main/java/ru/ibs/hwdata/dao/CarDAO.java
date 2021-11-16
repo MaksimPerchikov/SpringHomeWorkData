@@ -1,25 +1,22 @@
 package ru.ibs.hwdata.dao;
 
 
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.ibs.hwdata.entities.Car;
-import ru.ibs.hwdata.entities.Engine;
-import ru.ibs.hwdata.repo.CarRepository;
+import ru.ibs.hwdata.repository.CarRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-@Component
+@Service
 public class CarDAO {
 
     CarRepository carRepository;
 
-    /*CarDAO(CarRepository carRepository){
+    @Autowired
+    public CarDAO(CarRepository carRepository){
         this.carRepository = carRepository;
-    }*/
+    }
 
     public Car save(Car car){
         return carRepository.save(car);
@@ -36,6 +33,11 @@ public class CarDAO {
     public void deleteById(Integer id){
         carRepository.deleteById(id);
     }
+    public void updateById(Car car){
+        carRepository.save(car);
+    }
+
+
 
 
     //тестовый гет метод

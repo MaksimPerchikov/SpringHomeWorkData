@@ -2,10 +2,8 @@ package ru.ibs.hwdata.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.ibs.hwdata.entities.Engine;
 import ru.ibs.hwdata.entities.Gear;
-import ru.ibs.hwdata.repo.EngineRepository;
-import ru.ibs.hwdata.repo.GearRepository;
+import ru.ibs.hwdata.repository.GearRepository;
 
 import java.util.List;
 
@@ -13,7 +11,10 @@ import java.util.List;
 public class GearDAO {
 
     GearRepository gearRepository;
-
+    @Autowired
+    public GearDAO(GearRepository gearRepository) {
+        this.gearRepository = gearRepository;
+    }
 
     public Gear save(Gear gear){
         return gearRepository.save(gear);
@@ -29,5 +30,9 @@ public class GearDAO {
 
     public void deleteById(Integer id){
         gearRepository.deleteById(id);
+    }
+
+    public void updateById(Gear gear){
+        gearRepository.save(gear);
     }
 }

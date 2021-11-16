@@ -7,13 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ibs.hwdata.dao.EngineDAO;
-import ru.ibs.hwdata.entities.Car;
 import ru.ibs.hwdata.entities.Engine;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/engine")
@@ -28,19 +24,22 @@ public class EngineController {
 
 
 
-
-
     @GetMapping(value = "read/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Engine> readById(@PathVariable("id") Integer id){
-        try{
-            List<Engine> engineList = new ArrayList<>();
-            engineList.add((Engine) engineDAO.findById(id));
-            return engineList;
-
-        }catch(Exception e){
-            return engineDAO.findAll();
-        }
+    public Object readById(@PathVariable("id") Integer id) {  //List<Car> --> Object
+        List<Engine> engineListList = engineDAO.findAll();
+        return engineListList.stream()
+                .filter(engine -> {
+                    return engine.getId_engine().equals(id);
+                })
+                .findFirst();
     }
+
+    @GetMapping(value="read" ,consumes ={MediaType.ALL_VALUE},produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Engine> readAll(){
+        return engineDAO.findAll();
+    }
+
+
 
     @PostMapping(value = "create", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public Engine create(@RequestBody Engine engine) {
@@ -56,14 +55,15 @@ public class EngineController {
         }
     }
 
-    @PostMapping("update/{id}")
-    public void updateById(@RequestBody Integer id,
-                           Engine engine) {
+
+    @PostMapping(value = "update/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateById(@PathVariable("id") Integer id,@RequestBody Engine engine) {
         try {
-            Map<Engine, Integer> engineIntegerHashMap = new HashMap<>();
-            engineIntegerHashMap.put(engine, id);
+            engineDAO.deleteById(id);
+            engineDAO.save(engine);
         } catch (Exception e) {
             new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 }

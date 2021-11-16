@@ -6,16 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ibs.hwdata.dao.ManualDAO;
-import ru.ibs.hwdata.dao.SteeringWheelDAO;
-import ru.ibs.hwdata.entities.Engine;
-import ru.ibs.hwdata.entities.Gear;
 import ru.ibs.hwdata.entities.Manual;
-import ru.ibs.hwdata.entities.SteeringWheel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/manual")
@@ -28,15 +19,8 @@ public class ManualController {
     }
 
     @GetMapping(value = "read/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Manual> readById(@PathVariable("id") Integer id) {
-        try {
-            List<Manual> engineList = new ArrayList<>();
-            engineList.add((Manual) manualDAO.findById(id));
-            return engineList;
-
-        } catch (Exception e) {
-            return manualDAO.findAll();
-        }
+    public Object readById(@PathVariable("id") Integer id) {
+        return manualDAO.findById(id);
     }
 
     @PostMapping(value = "create", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,14 +36,14 @@ public class ManualController {
             new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("update/{id}")
-    public void updateById(@RequestBody Integer id,
-                           Manual manual) {
+    @PostMapping(value = "update/{id}", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateById(@PathVariable("id") Integer id,@RequestBody Manual manual) {
         try {
-            Map<Manual, Integer> manualIntegerHashMap = new HashMap<>();
-            manualIntegerHashMap.put(manual, id);
+            manualDAO.deleteById(id);
+            manualDAO.save(manual);
         } catch (Exception e) {
             new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 }

@@ -2,16 +2,18 @@ package ru.ibs.hwdata.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.ibs.hwdata.entities.Car;
 import ru.ibs.hwdata.entities.Manual;
-import ru.ibs.hwdata.repo.ManualRepository;
+import ru.ibs.hwdata.repository.ManualRepository;
 
 import java.util.List;
 @Service
 public class ManualDAO {
 
     ManualRepository manualRepository;
-
+    @Autowired
+    public ManualDAO(ManualRepository manualRepository) {
+        this.manualRepository = manualRepository;
+    }
 
     public Manual save(Manual manual){
         return manualRepository.save(manual);
@@ -27,5 +29,9 @@ public class ManualDAO {
 
     public void deleteById(Integer id){
         manualRepository.deleteById(id);
+    }
+
+    public void updateById(Manual manual){
+        manualRepository.save(manual);
     }
 }
